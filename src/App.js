@@ -1,25 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+
+class Square extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      owner: '-',
+      isPlayerX: props.isPlayerX,
+    }
+    this.setOwner = this.setOwner.bind(this);
+  }
+
+  setOwner() {
+    this.setState((state) => {
+      if (this.state.isPlayerX) {
+        return {owner: "X"}
+      } else {
+        return {owner: "O"}
+      }
+    });
+  }
+
+  render() {
+    return (
+      <button onClick={this.setOwner}>{this.state.owner}</button>
+    )
+  }
+}
+
+class Game extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isPlayerX: true,
+    }
+  }
+
+  render() {
+    return <Square isPlayerX={this.state.isPlayerX} /> 
+  } 
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Game />
   );
 }
 
 export default App;
+
