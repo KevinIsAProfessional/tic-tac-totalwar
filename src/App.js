@@ -36,7 +36,26 @@ class Game extends React.Component {
   }
 
   render() {
-    return <Square isPlayerX={this.state.isPlayerX} /> 
+    return ( 
+      <div>
+        <div>
+          <Square isPlayerX={this.state.isPlayerX} />
+          <Square isPlayerX={this.state.isPlayerX} />
+          <Square isPlayerX={this.state.isPlayerX} />
+
+        </div>
+        <div>
+          <Square isPlayerX={this.state.isPlayerX} />
+          <Square isPlayerX={this.state.isPlayerX} />
+          <Square isPlayerX={this.state.isPlayerX} />
+        </div>
+        <div>
+          <Square isPlayerX={this.state.isPlayerX} />
+          <Square isPlayerX={this.state.isPlayerX} />
+          <Square isPlayerX={this.state.isPlayerX} />
+        </div>
+      </div>
+    )
   } 
 }
 
