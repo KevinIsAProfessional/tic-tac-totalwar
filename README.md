@@ -1,1 +1,1 @@
-this is a tic tac toe game times 10. literally. it's nine tic tac toe games making one big mama tic tac toe game. or, at least it will be. it's not much of anything yet. anyways, i'm updating this readme so i can get my little green box on github for the day. professional, huh?
+this is a tic tac toe game times 10. literally. it's nine tic tac toe games making one big mama tic tac toe game. or, at least it will be. it's not much of anything yet. anyways, i'm updating this readme so i can get my little green box on github for the day. 
