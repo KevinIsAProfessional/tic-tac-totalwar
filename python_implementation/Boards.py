@@ -25,7 +25,6 @@ class Board(ttk.Frame):
                               [0,4,8],
                               [2,4,6]
                             ]
-        print(self.getWinningCombos())
 
     def checkForWin(self):
         for combo in self.winningCombos:
@@ -64,7 +63,6 @@ class BattleBoard(Board):
         self.updateStringVar(pos)
         self.disableBoard()
         if self.checkForWin():
-            print("lil winner ", self.boardId)
             self.hasOwner = True
             self.parent.processMove(True, pos, self.boardId)
         else:
@@ -98,7 +96,6 @@ class WarBoard(Board):
         if win:
             self.owners[boardId] = self.players.getActivePlayer()
             if self.checkForWin():
-                print("winner ", boardId)
                 self.parent.processMove(True, pos, boardId)
                 return None
         if self.owners[pos] != "":
