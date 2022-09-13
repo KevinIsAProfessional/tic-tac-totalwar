@@ -9,6 +9,8 @@ class Board(ttk.Frame):
         self.style = ttk.Style()
         self.style.configure("Inactive.TFrame", padding=1, background="#CF9817")
         self.style.configure("Active.TFrame", padding=2, background="#026633")
+        self.style.map("Inactive.TButton", foreground=[("disabled", "black")])
+
         super().__init__(parent, padding=4)
         self.parent = parent
         self.players = players
@@ -43,7 +45,6 @@ class Board(ttk.Frame):
     def getSize(self):
         return self.size ** 2
 
-
 class BattleBoard(Board):
     def __init__(self, parent, players, boardId=0):
         super().__init__(parent, players, boardId)
@@ -58,7 +59,7 @@ class BattleBoard(Board):
         for i in range(self.getSize()):
             self.owners.append("")
             self.stringVars.append(StringVar(self, self.owners[i]))
-            self.boardArray.append(ttk.Button(self.frame, textvariable=self.stringVars[i], command=lambda i=i: self.processMove(i)))
+            self.boardArray.append(ttk.Button(self.frame, textvariable=self.stringVars[i], command=lambda i=i: self.processMove(i), style="Inactive.TButton"))
             self.boardArray[i].grid(column=(i%self.size), row=(math.floor(i/self.size)))
 
     def processMove(self, pos):

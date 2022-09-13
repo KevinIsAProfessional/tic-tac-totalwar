@@ -44,6 +44,7 @@ class Game(ttk.Frame):
     def battle(self):
         self.wm.setSize("battle")
         self.gameType = "battle"
+        self.updateBanner("next")
         self.board = Boards.BattleBoard(self, self.players)
         self.board.grid(column=0, row=1)
         self.board.initializeBoard()
@@ -51,6 +52,7 @@ class Game(ttk.Frame):
     def war(self):
         self.wm.setSize("war")
         self.gameType = "war"
+        self.updateBanner("next")
         self.board = Boards.WarBoard(self, self.players)
         self.board.grid(column=0, row=1)
         self.board.initializeBoard()
