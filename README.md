@@ -1,4 +1,4 @@
-###Tic Tac Totalwar
+# Tic Tac Totalwar
 
 This is an implementation of nine board Tic Tac Toe. 
 
