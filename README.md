@@ -1,3 +1,8 @@
-This will someday be a scaled up version of tic tac toe. Currently, it's a few unfinished implementations of regular tic tac toe. It started as a React app several months ago, but that proved to be a bit outside of my skill range. I'm working on a tic tac toe implementation in python to get a handle on the mechanics of the game in a language I understand before including the web programming.
+#Tic Tac Totalwar
 
-In python, I am using tkinter as the UI. There is a working game board as of now, without any game logic. 
+This is an implementation of nine board Tic Tac Toe. 
+
+Every move that is played influences where the next move can be played. 
+For example, if Player 1 captures the top left square of a small board, Player 2 must then capture a square in the top left board.
+
+To win, capture three boards in a row.
