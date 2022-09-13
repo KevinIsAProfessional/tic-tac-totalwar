@@ -3,12 +3,13 @@ from tkinter import ttk
 import math
 
 
-#class Styles:
-#    self.inactive = ttk.theme 
 
 class Board(ttk.Frame):
     def __init__(self, parent, players, boardId):
-        super().__init__(parent, padding=5)
+        self.style = ttk.Style()
+        self.style.configure("Inactive.TFrame", padding=1, background="#CF9817")
+        self.style.configure("Active.TFrame", padding=2, background="#026633")
+        super().__init__(parent, padding=4)
         self.parent = parent
         self.players = players
         self.boardArray = []
@@ -47,14 +48,17 @@ class BattleBoard(Board):
     def __init__(self, parent, players, boardId=0):
         super().__init__(parent, players, boardId)
         self.stringVars = []
-        self.initializeBoard()
         self.hasOwner = False
+        self.frame = ttk.Frame(self, padding=3)
+        self.frame.grid(column=0, row=0)
+        self.frame["style"] = "Active.TFrame"
+        self.initializeBoard()
 
     def initializeBoard(self):
         for i in range(self.getSize()):
             self.owners.append("")
             self.stringVars.append(StringVar(self, self.owners[i]))
-            self.boardArray.append(ttk.Button(self, textvariable=self.stringVars[i], command=lambda i=i: self.processMove(i)))
+            self.boardArray.append(ttk.Button(self.frame, textvariable=self.stringVars[i], command=lambda i=i: self.processMove(i)))
             self.boardArray[i].grid(column=(i%self.size), row=(math.floor(i/self.size)))
 
     def processMove(self, pos):
@@ -74,12 +78,14 @@ class BattleBoard(Board):
     def disableBoard(self):
         for button in self.boardArray:
             button["state"] = DISABLED
+            self.frame["style"] = "Inactive.TFrame"
 
     def enableBoard(self):
         if not self.hasOwner:
             for i, square in enumerate(self.owners):
                 if square == "":
                     self.boardArray[i]["state"] = NORMAL
+                    self.frame["style"] = "Active.TFrame"
 
 class WarBoard(Board):
     def __init__(self, parent, players, boardId=0):
