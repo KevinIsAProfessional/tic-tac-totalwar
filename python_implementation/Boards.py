@@ -3,6 +3,9 @@ from tkinter import ttk
 import math
 
 
+#class Styles:
+#    self.inactive = ttk.theme 
+
 class Board(ttk.Frame):
     def __init__(self, parent, players, boardId):
         super().__init__(parent, padding=5)
@@ -11,6 +14,7 @@ class Board(ttk.Frame):
         self.boardArray = []
         self.owners     = []
         self.boardId    = boardId
+        self.size       = 3
         self.winningCombos = [
                               [0,1,2],
                               [3,4,5],
@@ -21,6 +25,7 @@ class Board(ttk.Frame):
                               [0,4,8],
                               [2,4,6]
                             ]
+        print(self.getWinningCombos())
 
     def checkForWin(self):
         for combo in self.winningCombos:
@@ -35,6 +40,10 @@ class Board(ttk.Frame):
             return True
         return False
 
+    def getSize(self):
+        return self.size ** 2
+
+
 class BattleBoard(Board):
     def __init__(self, parent, players, boardId=0):
         super().__init__(parent, players, boardId)
@@ -43,11 +52,11 @@ class BattleBoard(Board):
         self.hasOwner = False
 
     def initializeBoard(self):
-        for i in range(9):
+        for i in range(self.getSize()):
             self.owners.append("")
             self.stringVars.append(StringVar(self, self.owners[i]))
             self.boardArray.append(ttk.Button(self, textvariable=self.stringVars[i], command=lambda i=i: self.processMove(i)))
-            self.boardArray[i].grid(column=(i%3), row=(math.floor(i/3)))
+            self.boardArray[i].grid(column=(i%self.size), row=(math.floor(i/self.size)))
 
     def processMove(self, pos):
         token = self.players.getActivePlayer()
@@ -55,6 +64,7 @@ class BattleBoard(Board):
         self.updateStringVar(pos)
         self.disableBoard()
         if self.checkForWin():
+            print("lil winner ", self.boardId)
             self.hasOwner = True
             self.parent.processMove(True, pos, self.boardId)
         else:
@@ -79,15 +89,18 @@ class WarBoard(Board):
         self.activeBoard = None
 
     def initializeBoard(self):
-        for i in range(9):
+        for i in range(self.getSize()):
             self.owners.append("")
             self.boardArray.append(BattleBoard(self, self.players, i))
-            self.boardArray[i].grid(column=(i%3), row=(math.floor(i/3)))
+            self.boardArray[i].grid(column=(i%self.size), row=(math.floor(i/self.size)))
 
     def processMove(self, win, pos, boardId):
         if win:
             self.owners[boardId] = self.players.getActivePlayer()
-            self.checkForWin()
+            if self.checkForWin():
+                print("winner ", boardId)
+                self.parent.processMove(True, pos, boardId)
+                return None
         if self.owners[pos] != "":
             self.activeBoard = None
             for board in self.boardArray:

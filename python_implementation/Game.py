@@ -43,7 +43,7 @@ class Game(ttk.Frame):
         if messageType == "next":
             self.bannerMessage.set(f"{self.players.getActivePlayer()}'s turn")
         elif messageType == "win":
-            self.bannerMessage.set("Game over")
+            self.bannerMessage.set(f"{self.players.getActivePlayer()} wins!")
 
 
 def main():
